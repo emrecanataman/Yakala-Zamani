@@ -48,7 +48,7 @@ Sitenin en güçlü yanı "asla eskimeyen ve manuel müdahaleye ihtiyaç duymaya
 ---
 
 ## 🛠️ Tasarım ve Teknoloji Altyapısı
-- **Çekirdek:** HTML5, CSS3, Vanilla JavaScript (Hiçbir harici ağır kütüphane veya framework gerektirmez; ultra hızlı açılır).
+- **Çekirdek:** HTML5, CSS3, Vanilla JavaScript.
 - **Glassmorphism:** Yarı saydam buzlu cam paneller ve modern derinlik efektleri.
 - **Ambient Arka Plan:** Pembe, cam göbeği ve mor tonlarında yavaşça süzülen ışıma küreleri.
 - **Tipografi:** Google Fonts *Kanit* yazı tipi ailesi.
