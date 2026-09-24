@@ -1,0 +1,13 @@
+# İşletim sistemi kalıntıları
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör ve IDE ayar dizinleri
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Geçici günlükler
+*.log

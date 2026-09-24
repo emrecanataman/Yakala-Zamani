@@ -1,0 +1,208 @@
+/* ================================================================================
+   YAKALA ZAMANI - STYLE.CSS
+   Özel animasyonlar, glassmorphism efektleri ve ambient arka plan stilleri
+   ================================================================================ */
+
+/* Sayfanın genel stili: Kanit yazı tipini tüm siteye uyguluyoruz. */
+body {
+    font-family: 'Kanit', sans-serif;
+}
+
+/* ====================
+   HAREKETLI ARKA PLAN ANİMASYONLARI
+   Pembe, Cam Göbeği ve Mor tonlarında yumuşak ambient küreler oluşturur.
+   Bu küreler yavaşça hareket ederek sayfaya derinlik ve canlılık katar.
+   ==================== */
+
+/* İlk kürenin hareket animasyonu */
+@keyframes ambientFloat1 {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(40px, -60px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* İkinci kürenin hareket animasyonu */
+@keyframes ambientFloat2 {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(-50px, 50px) scale(1.08); }
+    66% { transform: translate(35px, -30px) scale(0.92); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Üçüncü kürenin hareket animasyonu */
+@keyframes ambientFloat3 {
+    0% { transform: translate(0px, 0px) scale(0.95); }
+    50% { transform: translate(30px, -40px) scale(1.1); }
+    100% { transform: translate(0px, 0px) scale(0.95); }
+}
+
+/* ====================
+   AMBİENT CANVAS (ARKA PLAN KATMANI)
+   Tüm ambient küreleri içeren sabit pozisyonlu katman.
+   pointer-events: none ile kullanıcı etkileşimini engellemez.
+   ==================== */
+.ambient-canvas {
+    position: fixed;
+    inset: 0; /* top, right, bottom, left: 0 kısayolu */
+    z-index: 0; /* En arka katmanda */
+    overflow: hidden;
+    pointer-events: none; /* Tıklama olaylarını engellemez */
+}
+
+/* ====================
+   AÇIK TEMA - AMBİENT IŞIK KÜRELERİ
+   ==================== */
+
+/* Pembe ambient küre: Sol üstte konumlanır ve yavaşça yüzer */
+.ambient-light-pink {
+    position: absolute;
+    top: -12%;
+    left: 10%;
+    width: 72vw;
+    height: 68vw;
+    background: radial-gradient(circle, rgba(225, 29, 116, 0.44) 0%, rgba(244, 63, 142, 0.30) 40%, rgba(251, 113, 133, 0.14) 65%, transparent 80%);
+    filter: blur(75px); /* Yumuşak bulanıklık efekti */
+    animation: ambientFloat1 16s ease-in-out infinite; /* 16 saniyede bir döngü */
+}
+
+/* Cam göbeği ambient küre: Sağ altta konumlanır */
+.ambient-light-cyan {
+    position: absolute;
+    bottom: -15%;
+    right: 5%;
+    width: 75vw;
+    height: 72vw;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.44) 0%, rgba(14, 165, 233, 0.30) 45%, rgba(56, 189, 248, 0.14) 65%, transparent 80%);
+    filter: blur(80px);
+    animation: ambientFloat2 20s ease-in-out infinite; /* 20 saniyede bir döngü */
+}
+
+/* Mor/Leylak ambient küre: Ortada konumlanır, pembe ve mavi arasında geçiş sağlar */
+.ambient-light-violet {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, rgba(192, 132, 252, 0.16) 45%, transparent 70%);
+    filter: blur(90px);
+    animation: ambientFloat3 18s ease-in-out infinite; /* 18 saniyede bir döngü */
+}
+
+/* ====================
+   KOYU TEMA - AMBİENT IŞIK KÜRELERİ
+   Karanlık modda renklerin daha zengin ve derin olmasını sağlar.
+   ==================== */
+.dark .ambient-light-pink {
+    background: radial-gradient(circle, rgba(225, 29, 116, 0.50) 0%, rgba(190, 24, 93, 0.35) 45%, transparent 75%);
+}
+
+.dark .ambient-light-cyan {
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.50) 0%, rgba(3, 105, 161, 0.35) 45%, transparent 75%);
+}
+
+.dark .ambient-light-violet {
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.35) 0%, rgba(107, 33, 168, 0.20) 50%, transparent 75%);
+}
+
+/* ====================
+   PILL BUTON GÖLGELENDİRMESİ
+   Hap (pill) şeklindeki butonlara zarif gölge efekti katar.
+   ==================== */
+.pill-button-shadow {
+    box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+.dark .pill-button-shadow {
+    box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.45);
+}
+
+/* ====================
+   GLASS PANEL (GLASSMORPHISM / CAM EFEKTİ)
+   Kartlar, başlık ve paneller için yarı saydam cam hissi.
+   backdrop-filter: blur ile arkadaki renkler yumuşak şekilde süzülür.
+   ==================== */
+.glass-panel {
+    background-color: rgba(255, 255, 255, 0.76); /* Yarı saydam beyaz */
+    backdrop-filter: blur(20px); /* Arka planı bulanıklaştırır */
+    -webkit-backdrop-filter: blur(20px); /* Safari uyumluluğu */
+    border: 1px solid rgba(255, 255, 255, 0.7); /* Hafif beyaz kenarlık */
+    box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.04); /* Zarif gölge */
+}
+
+/* Koyu tema cam efekti */
+.dark .glass-panel {
+    background-color: rgba(15, 23, 42, 0.74); /* Yarı saydam koyu */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.08); /* Çok hafif beyaz kenarlık */
+    box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.35);
+}
+
+/* ====================
+   SAYAÇ KUTULARI (DİGİT BOX)
+   Geri sayımdaki gün, saat, dakika, saniye kutucuklarının stili.
+   ==================== */
+.digit-box {
+    background-color: rgba(248, 250, 252, 0.8); /* Açık arka plan */
+    border: 1px solid rgba(226, 232, 240, 0.8); /* Hafif kenarlık */
+}
+
+/* Koyu tema sayaç kutuları */
+.dark .digit-box {
+    background-color: rgba(30, 41, 59, 0.6);
+    border-color: rgba(51, 65, 85, 0.6);
+}
+
+/* ====================
+   VAKİT GELDİ (1 DAKİKALIK UYARI / KUTLAMA ANİMASYONU)
+   Etkinlik vakti geldiğinde (saat 00:00 veya etkinlik saatinde) kutunun
+   ve içerisindeki tüm yazıların 1 dakika boyunca nazikçe, abartısız bir
+   şekilde büyüyüp küçülmesini (nefes alma / pulse efekti) sağlar.
+   ==================== */
+@keyframes vakitGeldiPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px -2px rgba(225, 29, 116, 0.15);
+    }
+    50% {
+        transform: scale(1.025);
+        box-shadow: 0 12px 32px -4px rgba(225, 29, 116, 0.35), 0 0 16px 2px rgba(244, 63, 142, 0.25);
+    }
+}
+
+@keyframes vakitGeldiPulseDark {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px -2px rgba(244, 63, 142, 0.2);
+    }
+    50% {
+        transform: scale(1.025);
+        box-shadow: 0 14px 36px -2px rgba(244, 63, 142, 0.5), 0 0 24px 4px rgba(225, 29, 116, 0.4);
+    }
+}
+
+.vakit-geldi-animasyon {
+    animation: vakitGeldiPulse 2s ease-in-out infinite !important;
+    border-color: rgba(244, 63, 142, 0.65) !important;
+    position: relative;
+    z-index: 20;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.dark .vakit-geldi-animasyon {
+    animation: vakitGeldiPulseDark 2s ease-in-out infinite !important;
+    border-color: rgba(251, 113, 133, 0.75) !important;
+}
+
+/* Vurgu rozet animasyonu */
+@keyframes rozetYanilSon {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+.vakit-geldi-rozet {
+    animation: rozetYanilSon 1.5s ease-in-out infinite;
+}

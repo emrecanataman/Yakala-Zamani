@@ -1,0 +1,573 @@
+<!DOCTYPE html> <!-- Sitemizin HTML5 standardına uyumlu olması için tanımladığımız etiket -->
+<html lang="tr" class="scroll-smooth">
+<!-- Belgenin dilinin Türkçe olduğunu belirttik. scroll-smooth ile sayfada yumuşak kaydırma efekti etkinleştirildi. -->
+
+<head>
+    <!--<head> elementi, bir web sayfasının meta bilgilerini ve sayfanın işlevselliğini tanımlayan bilgileri içeren bölümdür.-->
+    <meta charset="UTF-8"> <!-- Karakter kodlamasını UTF-8 olarak ayarladık. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Web sitemizin mobil cihazlara uyumlu olmasını sağladık. -->
+    <title>Yakala Zamanı | Önemli Tarihler ve Geri Sayım</title> <!-- title elementi ile sayfa başlığını tanımladık. -->
+    <meta name="description"
+        content="Yakala Zamanı - Türkiye'deki önemli bayramlar, sınavlar ve özel günlere kalan süreyi canlı olarak takip edin.">
+    <!-- SEO için açıklama metni -->
+
+    <!-- Favicon ve Sosyal Medya Önizleme: Proje logosu -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta property="og:image" content="logo.png">
+
+    <!-- Google Fonts'dan "Kanit" yazı tipini projemize aktarıyoruz -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Google Fonts sunucusuna ön bağlantı -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fontların hızlı yüklenmesi için ikinci bağlantı -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN: Modern, responsive ve utility-first CSS framework'ü -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Yapılandırması: Tema özelleştirmeleri burada yapılır -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Karanlık mod class tabanlı kontrol edilecek
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'], // Varsayılan yazı tipi Kanit olarak ayarlandı
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Harici CSS dosyamızı bağlıyoruz: Özel animasyonlar, glassmorphism ve ambient efektler burada -->
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<!--body elementi ile web siteyi web sitesi yapan kısım kodlanır. Web sitesinin gövde kısmıdır.-->
+
+<body
+    class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-300 relative selection:bg-rose-500 selection:text-white">
+    <!-- 
+        Tailwind sınıfları açıklaması:
+        bg-slate-50: Açık gri arka plan | dark:bg-slate-950: Karanlık modda koyu arka plan
+        min-h-screen: Minimum yükseklik ekran boyutu kadar | flex flex-col: Dikey flex düzen
+        antialiased: Yazı tipi kenar yumuşatma | transition-colors duration-300: Renk geçiş animasyonu
+        selection:bg-rose-500: Metin seçildiğinde pembe arka plan
+    -->
+
+    <!-- Hareketli Ambient Arka Plan Katmanı: Pembe, Mor ve Cam Göbeği renklerinde yumuşak hareketli küreler -->
+    <div class="ambient-canvas" aria-hidden="true">
+        <div class="ambient-light-pink"></div>
+        <div class="ambient-light-cyan"></div>
+        <div class="ambient-light-violet"></div>
+    </div>
+
+    <!-- Üst Bar (Header): Logo, Kategori Menüsü ve Sağ Kontroller -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b transition-colors duration-200">
+        <!-- sticky top-0: Sayfa kaydırılınca üstte sabit kalır | z-40: Katman önceliği | glass-panel: Cam efekti -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+
+            <!-- Sol: Logo ve Site Adı -->
+            <a href="javascript:void(0)" onclick="sayfayiSifirla()"
+                class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <!-- Proje Logosu -->
+                <img src="logo.png" alt="Yakala Zamanı Logo"
+                    class="w-10 h-10 group-hover:scale-105 transition-transform duration-200 object-contain">
+                <div>
+                    <span
+                        class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase flex items-center gap-1.5">
+                        Yakala Zamanı
+                    </span>
+                </div>
+            </a>
+
+            <!-- Orta: Kategori Navigasyon Menüsü (Masaüstü - lg ve üzeri ekranlarda görünür) -->
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+                <!-- Her buton bir kategoriyi temsil eder. data-nav ile JavaScript'te hangi kategoriye ait olduğu belirlenir. -->
+                <button onclick="kategoriGoster('tum')" data-nav="tum"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm">
+                    Tümü
+                </button>
+                <button onclick="kategoriGoster('milli')" data-nav="milli"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Milli Bayramlar
+                </button>
+                <button onclick="kategoriGoster('dini')" data-nav="dini"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Dini Bayramlar
+                </button>
+                <button onclick="kategoriGoster('onemli')" data-nav="onemli"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Önemli Günler
+                </button>
+                <button onclick="kategoriGoster('sinav')" data-nav="sinav"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Sınavlar
+                </button>
+                <button onclick="kategoriGoster('ozel')" data-nav="ozel"
+                    class="nav-ust-link px-3.5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    Özel Takip
+                </button>
+            </nav>
+
+            <!-- Sağ: Canlı Saat, Tema Değiştirici ve Etkinlik Ekle Butonu -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <!-- Canlı Sistem Saati (Sadece sm ve üzeri ekranlarda görünür) -->
+                <div
+                    class="hidden sm:flex items-center px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200 tabular-nums shadow-xs">
+                    <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+                        <polyline points="12 6 12 12 14 14" stroke-width="2"></polyline>
+                    </svg>
+                    <span id="canliSistemSaati">--:--:--</span>
+                </div>
+
+                <!-- Aydınlık / Karanlık Mod Butonu -->
+                <button id="btnTemaDegistir" onclick="temaDegistir()" aria-label="Temayı Değiştir"
+                    title="Karanlık/Aydınlık Mod"
+                    class="w-10 h-10 rounded-full flex items-center justify-center bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 transition pill-button-shadow">
+                    <!-- Güneş İkonu (Karanlık moddayken gösterilir) -->
+                    <svg id="ikonGunes" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <!-- Ay İkonu (Aydınlık moddayken gösterilir) -->
+                    <svg id="ikonAy" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+
+                <!-- Etkinlik Ekle Butonu -->
+                <button onclick="modalAc('modalYeniEtkinlik')"
+                    class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-slate-50 dark:hover:bg-slate-700 transition active:scale-95 pill-button-shadow flex items-center gap-2">
+                    <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4">
+                        </path>
+                    </svg>
+                    <span>Etkinlik Ekle</span>
+                </button>
+
+                <!-- Mobil Menü Butonu (lg altı ekranlarda görünür) -->
+                <button onclick="mobilMenuGecis()"
+                    class="lg:hidden w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white flex items-center justify-center shadow-md active:scale-95 transition"
+                    aria-label="Kategorileri Göster">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobil Görünüm İçin Açılır Kategori Şeridi -->
+        <div id="mobilMenuAlani"
+            class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 px-4 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
+            <div class="grid grid-cols-2 gap-2 text-center">
+                <button onclick="kategoriGoster('tum'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Tümü</button>
+                <button onclick="kategoriGoster('milli'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Milli
+                    Bayramlar</button>
+                <button onclick="kategoriGoster('dini'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Dini
+                    Bayramlar</button>
+                <button onclick="kategoriGoster('onemli'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Önemli
+                    Günler</button>
+                <button onclick="kategoriGoster('sinav'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Sınavlar</button>
+                <button onclick="kategoriGoster('ozel'); mobilMenuGecis();"
+                    class="py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white">Özel
+                    Etkinliklerim</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ana Sayfa İçeriği -->
+    <main class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Hero: En Yakın Etkinlik Vurgu Kartı -->
+        <section id="heroVurguAlani" class="glass-panel rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden">
+            <!-- Arka planda ince ambient ışıma detayları -->
+            <div class="absolute -right-16 -top-16 w-56 h-56 bg-rose-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <!-- Sol Kolon: En yakın etkinliğin başlığı ve tarihi -->
+                <div class="lg:col-span-5 space-y-3 text-center lg:text-left">
+                    <div class="flex items-center gap-2 flex-wrap justify-center lg:justify-start">
+                        <div id="heroRozetKapsayici"
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/50">
+                            <span id="heroRozetNokta" class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            <span id="heroRozetMetin" class="text-[11px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-widest">
+                                Yaklaşıyor
+                            </span>
+                        </div>
+                        <span id="heroDurumRozeti" class="hidden"></span>
+                    </div>
+
+                    <h1 id="heroBaslik"
+                        class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                        Hesaplanıyor...
+                    </h1>
+                    <p id="heroTarih" class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-normal">
+                        Tarih hesaplanıyor...
+                    </p>
+                </div>
+
+                <!-- Sağ Kolon: Büyük Geri Sayım Kutucukları -->
+                <div class="lg:col-span-7">
+                    <div class="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-xl mx-auto">
+                        <div class="digit-box p-3.5 sm:p-5 rounded-2xl text-center shadow-xs">
+                            <span id="heroGun"
+                                class="block text-2xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                            <span
+                                class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Gün</span>
+                        </div>
+                        <div class="digit-box p-3.5 sm:p-5 rounded-2xl text-center shadow-xs">
+                            <span id="heroSaat"
+                                class="block text-2xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                            <span
+                                class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Saat</span>
+                        </div>
+                        <div class="digit-box p-3.5 sm:p-5 rounded-2xl text-center shadow-xs">
+                            <span id="heroDakika"
+                                class="block text-2xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                            <span
+                                class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Dakika</span>
+                        </div>
+                        <div class="digit-box p-3.5 sm:p-5 rounded-2xl text-center shadow-xs">
+                            <span id="heroSaniye"
+                                class="block text-2xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                            <span
+                                class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Saniye</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtre ve Arama Çubuğu -->
+        <section class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <h2 id="aktifKategoriBaslik" class="text-base sm:text-xl font-bold text-slate-900 dark:text-white">
+                    <span>Tüm Etkinlikler</span>
+                </h2>
+            </div>
+
+            <!-- Arama Kutusu -->
+            <div class="relative w-full sm:w-72">
+                <input type="text" id="aramaGirdisi" oninput="etkinlikAra(this.value)" placeholder="Etkinlik ara..."
+                    class="w-full glass-panel focus:bg-white dark:focus:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-600 rounded-full px-4 py-2 pl-10 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none transition shadow-xs">
+                <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0118 0z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Etkinlik Kartları Izgarası: JavaScript tarafından dinamik olarak doldurulur -->
+        <section>
+            <div id="etkinlikKartlariKonteyner" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- JavaScript tarafında dinamik kartlar oluşturulur -->
+            </div>
+
+            <!-- Boş Sonuç Bildirimi -->
+            <div id="bosSonucAlani" class="hidden text-center py-16 px-4 glass-panel rounded-3xl">
+                <p class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Aramanıza Uygun Etkinlik Bulunamadı
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Farklı bir kelime aratabilir ya da filtreyi
+                    sıfırlayabilirsiniz.</p>
+                <button onclick="sayfayiSifirla()"
+                    class="px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 text-xs font-bold uppercase tracking-wider transition">
+                    Tümünü Göster
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Alt Bilgi (Footer) -->
+    <footer class="mt-auto border-t border-slate-200/80 dark:border-slate-800/80 glass-panel relative z-10">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <img src="logo.png" alt="Yakala Zamanı Logo" class="w-4 h-4 object-contain">
+            <span>© 2026 <strong>Yakala Zamanı</strong>. Tüm hakları saklıdır.</span>
+        </div>
+    </footer>
+
+    <!-- Yeni Etkinlik Ekleme Modalı -->
+    <div id="modalYeniEtkinlik"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs opacity-0 pointer-events-none transition-all duration-200">
+        <div
+            class="glass-panel bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5 transform scale-95 transition-transform duration-200">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white uppercase tracking-wider">Yeni Geri
+                        Sayım Ekle</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Hedeflediğiniz tarihi ve etkinliği belirleyin
+                    </p>
+                </div>
+                <button onclick="modalKapat('modalYeniEtkinlik')"
+                    class="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="formYeniEtkinlik" onsubmit="yeniEtkinlikKaydet(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Etkinlik
+                        Adı</label>
+                    <input type="text" id="yeniEtkinlikBaslik" required placeholder="Örn: KPSS, Mezuniyet, Doğum Günü"
+                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
+                    <select id="yeniEtkinlikKategori"
+                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none transition">
+                        <option value="ozel">Özel Etkinlik</option>
+                        <option value="sinav">Sınav / Akademi</option>
+                        <option value="milli">Milli / Resmi</option>
+                        <option value="dini">Dini Günler</option>
+                        <option value="onemli">Önemli Günler</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Tarih</label>
+                        <input type="date" id="yeniEtkinlikTarih" required
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Saat (ss : dd)</label>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <select id="yeniEtkinlikSaat" aria-label="Saat seçin"
+                                class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none transition text-center">
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09" selected>09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                            <select id="yeniEtkinlikDakika" aria-label="Dakika seçin"
+                                class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none transition text-center">
+                                <option value="00" selected>00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Açıklama (İsteğe
+                        bağlı)</label>
+                    <input type="text" id="yeniEtkinlikAciklama" placeholder="Kısa bir not ekleyin..."
+                        class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none transition">
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="modalKapat('modalYeniEtkinlik')"
+                        class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition">
+                        Vazgeç
+                    </button>
+                    <button type="submit"
+                        class="px-5 py-2 rounded-full bg-gradient-to-r from-rose-500 to-indigo-600 hover:opacity-90 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
+                        Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bildirim Mesajı (Toast Kutusu) -->
+    <div id="toastKutusu"
+        class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-200 pointer-events-none">
+        <div
+            class="bg-slate-900 text-white dark:bg-white dark:text-slate-900 border border-slate-800 dark:border-slate-200 shadow-xl rounded-full px-5 py-3 flex items-center gap-2.5 text-xs font-bold">
+            <span id="toastIkon">✓</span>
+            <span id="toastMesaj">İşlem tamamlandı.</span>
+        </div>
+    </div>
+
+    <!-- Etkinlik Detay Modalı: Kartlara tıklandığında açılır -->
+    <div id="modalEtkinlikDetay"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div
+            class="glass-panel bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 transform scale-95 transition-transform duration-300">
+            <!-- Üst: Kapatma butonu -->
+            <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                    <span id="detayIkon" class="text-4xl">📅</span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="detayRozet"
+                            class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 uppercase tracking-wider">Etkinlik</span>
+                        <span id="detayDurumRozeti"></span>
+                    </div>
+                </div>
+                <button onclick="modalKapat('modalEtkinlikDetay')"
+                    class="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Etkinlik Başlığı ve Tarihi -->
+            <div class="space-y-2 text-center">
+                <h3 id="detayBaslik"
+                    class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                    Etkinlik Adı
+                </h3>
+                <p id="detayTarih" class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                    Tarih bilgisi
+                </p>
+                <p id="detayAciklama" class="text-xs text-slate-600 dark:text-slate-400">
+                    Açıklama
+                </p>
+                <div id="detayDurumKutusu" class="hidden mt-3"></div>
+            </div>
+
+            <!-- Büyük Geri Sayım Kutucukları -->
+            <div id="detaySayacAlani" class="pt-2">
+                <div class="grid grid-cols-4 gap-3 max-w-md mx-auto">
+                    <div class="digit-box p-4 sm:p-5 rounded-2xl text-center">
+                        <span id="detayGun"
+                            class="block text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Gün</span>
+                    </div>
+                    <div class="digit-box p-4 sm:p-5 rounded-2xl text-center">
+                        <span id="detaySaat"
+                            class="block text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Saat</span>
+                    </div>
+                    <div class="digit-box p-4 sm:p-5 rounded-2xl text-center">
+                        <span id="detayDakika"
+                            class="block text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Dakika</span>
+                    </div>
+                    <div class="digit-box p-4 sm:p-5 rounded-2xl text-center">
+                        <span id="detaySaniye"
+                            class="block text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">00</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold mt-1 block">Saniye</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alt Butonlar -->
+            <div class="flex items-center justify-center gap-3 pt-2">
+                <button id="detayKopyalaBtn"
+                    class="px-5 py-2.5 rounded-full bg-gradient-to-r from-rose-500 to-indigo-600 hover:opacity-90 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3">
+                        </path>
+                    </svg>
+                    Kalan Süreyi Kopyala
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Harici JavaScript dosyamızı bağlıyoruz -->
+    <script src="script.js"></script>
+</body>
+
+</html>
