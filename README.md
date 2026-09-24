@@ -1,9 +1,9 @@
-![Yakala Zamanı](logo.png)
-
 # ⏳ Yakala Zamanı
 > **Zamana Meydan Okuyan Geri Sayım ve Etkinlik Takip Platformu**
 
 🌐 **Canlı Demo:** [Yakala Zamanı Canlı İzle](https://emrecanataman.github.io/Yakala-Zamani/) 
+
+![Yakala Zamanı](logo.png)
 
 ---
 
