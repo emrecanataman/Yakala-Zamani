@@ -3,7 +3,7 @@
 # ⏳ Yakala Zamanı
 > **Zamana Meydan Okuyan Geri Sayım ve Etkinlik Takip Platformu**
 
-🌐 **Canlı Demo:** [Yakala Zamanı Canlı İzle](https://kullaniciadi.github.io/yakala-zamani) *(GitHub Pages yayını sonrasında bu bağlantıyı kendi kullanıcı adınızla güncelleyebilirsiniz)*
+🌐 **Canlı Demo:** [Yakala Zamanı Canlı İzle]() 
 
 ---
 
@@ -76,7 +76,7 @@ Proje tamamen statik ve istemci taraflı olduğundan herhangi bir sunucu kurulum
 
 1. Depoyu klonlayın veya indirin:
    ```bash
-   git clone https://github.com/kullaniciadi/yakala-zamani.git
+   git clone https://github.com/emrecanataman/Yakala-Zamani.git
    ```
 2. `index.html` dosyasını doğrudan herhangi bir modern web tarayıcısında açın.
 3. Veya GitHub Pages, Vercel, Netlify gibi ücretsiz servislerle anında tüm dünyaya canlı yayına açın.
