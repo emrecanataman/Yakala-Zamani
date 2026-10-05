@@ -1,6 +1,6 @@
 {
   "versiyon": "1.0",
-  "sonGuncelleme": "2026-09-24",
+  "sonGuncelleme": "2026-10-05",
   "aciklama": "Yakala Zamanı - ÖSYM ve MEB Sınav Takvimi Merkezi Veri Kaynağı. Resmi sınav takvimleri ilan edildiğinde tarihler ve 'resmi' değerleri bu dosyada güncellenir.",
   "sinavlar": [
     {
@@ -32,7 +32,7 @@
       "baslik": "2026-YDS/2 (Sonbahar Dönemi)",
       "kategori": "sinav",
       "kategoriAdi": "Dil Sınavı",
-      "tarihStr": "2026-11-15T10:15:00",
+      "tarihStr": "2026-11-22T10:15:00",
       "resmi": true,
       "kurum": "ÖSYM",
       "aciklama": "Yabancı Dil Bilgisi Seviye Tespit Sınavı 2. oturumu.",
@@ -44,7 +44,7 @@
       "baslik": "2026-ALES/3 (Sonbahar Dönemi)",
       "kategori": "sinav",
       "kategoriAdi": "Akademik Sınav",
-      "tarihStr": "2026-11-22T10:15:00",
+      "tarihStr": "2026-11-29T10:15:00",
       "resmi": true,
       "kurum": "ÖSYM",
       "aciklama": "Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavı 3. oturumu.",

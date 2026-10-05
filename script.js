@@ -119,7 +119,7 @@ const VARSAYILAN_ETKINLIKLER = [
         kategori: 'sinav',
         kategoriAdi: 'Dil Sınavı',
         rozetRenk: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300',
-        tarihStr: '2026-11-15T10:15:00',
+        tarihStr: '2026-11-22T10:15:00',
         aciklama: 'Yabancı Dil Bilgisi Seviye Tespit Sınavı 2. oturumu.',
         sabit: true,
         ikon: '🌐',
@@ -135,7 +135,7 @@ const VARSAYILAN_ETKINLIKLER = [
         kategori: 'sinav',
         kategoriAdi: 'Akademik Sınav',
         rozetRenk: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300',
-        tarihStr: '2026-11-22T10:15:00',
+        tarihStr: '2026-11-29T10:15:00',
         aciklama: 'Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavı 3. oturumu.',
         sabit: true,
         ikon: '🎓',
@@ -736,8 +736,8 @@ function sinavTahminiTarihHesapla(sinavTuru, yil) {
             // Nisan ayının ilk Pazarı (10:15)
             return nInciPazariBul(yil, 4, 1, '10:15');
         case 'yds_2':
-            // Kasım ayının 3. Pazarı (10:15)
-            return nInciPazariBul(yil, 11, 3, '10:15');
+            // Kasım ayının 4. Pazarı (10:15)
+            return nInciPazariBul(yil, 11, 4, '10:15');
         case 'yds_3':
             // Aralık ayının ilk Pazarı (10:15)
             return nInciPazariBul(yil, 12, 1, '10:15');
@@ -748,8 +748,8 @@ function sinavTahminiTarihHesapla(sinavTuru, yil) {
             // Temmuz ayının 2. Pazarı (10:15)
             return nInciPazariBul(yil, 7, 2, '10:15');
         case 'ales_3':
-            // Kasım ayının 4. Pazarı (10:15)
-            return nInciPazariBul(yil, 11, 4, '10:15');
+            // Kasım ayının son Pazarı (10:15)
+            return nInciPazariBul(yil, 11, -1, '10:15');
         default:
             return null;
     }
